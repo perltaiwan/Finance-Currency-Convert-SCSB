@@ -28,15 +28,15 @@ subtest 'get_currencies' => sub {
 };
 
 subtest 'convert_currency' => sub {
-    my ($error, $result) = convert_currency(1, 'USD', 'TWD');
+    my ($error, $result) = convert_currency(10, 'USD', 'TWD');
 
     if (defined($error)) {
         is $result, U(), "Result is undef becasue we encounter errors";
     } else {
         is $result, D(), "Result is defined because we encounter no errors";
         ok looks_like_number($result);
-        ok $result > 1, "1 USD usually exchanges to more than 1 TWD";
-        note "1 USD = $result TWD now";
+        ok $result > 10, "10 USD usually costs more than 1 0TWD";
+        note "10 USD = $result TWD now";
     }
 };
 
