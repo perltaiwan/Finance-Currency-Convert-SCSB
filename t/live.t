@@ -1,8 +1,6 @@
 #!/usr/bin/env perl
 use Test2::V0;
 
-use JSON;
-
 use Scalar::Util qw(looks_like_number);
 use Finance::Currency::Convert::SCSB qw(get_currencies convert_currency);
 
