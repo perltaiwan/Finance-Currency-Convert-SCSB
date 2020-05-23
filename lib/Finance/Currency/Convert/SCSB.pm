@@ -8,17 +8,66 @@ our $VERSION = '0.001';
 use Exporter 'import';
 our @EXPORT_OK = qw(get_currencies convert_currency);
 
+use Mojo::Collection;
 use Mojo::UserAgent;
 
 sub get_currencies {
+    my ($error, $result);
+
+    my $dom;
+    eval {
+        $dom = _fetch_currency_exchange_web_page();
+    } or do {
+        $error = $@;
+    };
+    return ($error, undef) if defined $error;
+
+    my @col_names = qw(zh_currency_name en_currency_name buy_at sell_at);
+    my @cols = (
+        $dom->find("td.txt09 > span")->map('all_text')->to_array(),
+        $dom->find("td.txt09 + td > span")->map('all_text')->to_array(),
+        $dom->find("td.txt09 + td + td.txt101 > span")->map('all_text')->to_array(),
+        $dom->find("td.txt09 + td + td.txt101 + td.txt101 > span")->map('all_text')->to_array(),
+    );
+
+    my @rows = ();
+    for my $i (0..$#{$cols[0]}) {
+        push @rows, {
+            zh_currency_name => $cols[0][$i],
+            en_currency_name => $cols[1][$i],
+            buy_at           => $cols[2][$i],
+            sell_at          => $cols[3][$i],
+        }
+    }
+
+    return (undef, \@rows);
 }
 
 sub convert_currency {
+    my ($amount, $from_currency, $to_currency) = @_;
+    return ("The convertion target must be 'TWD'. Cannot proceed with '$to_currency'", undef) unless $to_currency eq 'TWD';
+
+    my $dom;
+    my ($error, $result) = get_currencies();
+    return ($error, undef) if defined $error;
+
+    my $rate;
+    for (@$result) {
+        if ($_->{en_currency_name} eq $from_currency) {
+            $rate = $_;
+            last;
+        }
+    }
+    return ("Unknown currency: $from_currency", undef) unless $rate;
+
+    return (undef, $amount * $rate->{buy_at});
 }
 
-sub _dom {
+sub _fetch_currency_exchange_web_page {
     my $ua = Mojo::UserAgent->new;
-    $ua->get('https://ibank.scsb.com.tw/netbank.portal?_nfpb=true&_pageLabel=page_other12&_nfls=false');
+    my $result = $ua->get('https://ibank.scsb.com.tw/netbank.portal?_nfpb=true&_pageLabel=page_other12&_nfls=false')->result;
+    die $result->message if $result->is_error;
+    return $result->dom;
 }
 
 1;
