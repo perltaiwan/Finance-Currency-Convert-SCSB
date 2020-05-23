@@ -1,0 +1,14 @@
+{
+    "name": "Finance-Currency-Convert-SCSB",
+    "x_static_install": true,
+    "resources": {
+        "bugtracker": {
+            "web": "https://github.com/perltaiwan/Finance-Currency-Convert-SCSB/issues"
+        },
+        "repository": {
+            "web": "https://github.com/perltaiwan/Finance-Currency-Convert-SCSB",
+            "url": "https://github.com/perltaiwan/Finance-Currency-Convert-SCSB.git",
+            "type": "git"
+        }
+    }
+}

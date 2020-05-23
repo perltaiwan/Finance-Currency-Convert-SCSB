@@ -65,4 +65,5 @@
 #!end included ExtUtils/MANIFEST.SKIP
 
 Finance-Currency-Convert-SCSB-.*
-README.pod
+README\.pod
+metamerge\.json
