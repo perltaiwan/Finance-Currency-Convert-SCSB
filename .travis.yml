@@ -11,3 +11,5 @@ notifications:
 
 git:
   depth: 1
+
+script: yath test
