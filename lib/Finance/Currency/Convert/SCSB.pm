@@ -3,7 +3,7 @@ package Finance::Currency::Convert::SCSB;
 use strict;
 use warnings;
 
-our $VERSION = '0.001';
+our $VERSION = v0.1.0;
 
 use Exporter 'import';
 our @EXPORT_OK = qw(get_currencies convert_currency);
@@ -84,7 +84,7 @@ Finance::Currency::Convert::SCSB - Query currency exchange rates from SCSB (Shan
 
 =head1 VERSION
 
-0.1.0
+v0.1.0
 
 =head1 DESCRIPTION
 
