@@ -31,8 +31,7 @@ __END__
 
 =head1 NAME
 
-Finance::Currency::Convert::SCSB - Query currency exchange rates on
-SCSB ( Shanghai Commercial and Savings Bank )
+Finance::Currency::Convert::SCSB - Query currency exchange rates from SCSB (Shanghai Commercial and Savings Bank)
 
 =head1 VERSION
 
