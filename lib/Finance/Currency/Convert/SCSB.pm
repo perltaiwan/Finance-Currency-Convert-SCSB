@@ -171,9 +171,10 @@ Usage:
         ...
     }
 
-The "Rate" type is a HashRef with 4 specific key-value pairs that looks like this:
+The "Rate" type is a HashRef with 5 specific key-value pairs that looks like this:
 
     {
+        currency         => "USD",
         zh_currency_name => "美金現金",
         en_currency_name => "USD CASH",
         buy_at           => 33.06,
