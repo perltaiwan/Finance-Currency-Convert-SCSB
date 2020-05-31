@@ -32,7 +32,9 @@ sub get_currencies {
 
     my @rows = ();
     for my $i (0..$#{$cols[0]}) {
+        my $currency = $cols[1][$i] =~ s/ CASH//r;
         push @rows, {
+            currency         => $currency,
             zh_currency_name => $cols[0][$i],
             en_currency_name => $cols[1][$i],
             buy_at           => $cols[2][$i],
@@ -53,7 +55,8 @@ sub convert_currency {
 
     my $rate;
     for (@$result) {
-        if ($_->{en_currency_name} eq $from_currency) {
+        next if $_->{en_currency_name} =~ /CASH/;
+        if ($_->{currency} eq $from_currency) {
             $rate = $_;
             last;
         }
