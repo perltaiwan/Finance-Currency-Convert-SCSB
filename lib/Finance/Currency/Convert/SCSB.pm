@@ -8,7 +8,6 @@ our $VERSION = v0.1.0;
 use Exporter 'import';
 our @EXPORT_OK = qw(get_currencies convert_currency);
 
-use Mojo::Collection;
 use Mojo::UserAgent;
 
 sub get_currencies {
